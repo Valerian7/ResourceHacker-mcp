@@ -1,0 +1,28 @@
+{
+  "name": "resource-hacker-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for Resource Hacker - Windows PE resource editor and compiler",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test.js"
+  },
+  "keywords": [
+    "mcp",
+    "resource-hacker",
+    "windows",
+    "pe",
+    "resources",
+    "exe",
+    "dll"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
