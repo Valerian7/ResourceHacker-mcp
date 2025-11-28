@@ -22,21 +22,20 @@
 
 - Windows 操作系统
 - Node.js 18 或更高版本
-- Claude code、codx等支撑mcp的应用
-- ResourceHacker.exe
+- Claude code、codx等支持mcp的应用
+- [ResourceHacker](http://www.angusj.com/resourcehacker/)
 
 ### 步骤 1：安装依赖
 
 ```bash
-cd mcp_server
+git clone https://github.com/Valerian7/ResourceHacker-mcp.git
+cd ResourceHacker-mcp
 npm install
 ```
 
-### 步骤 2：配置 Claude Desktop
+### 步骤 2：配置 MCP
 
-编辑配置文件：`%APPDATA%\Claude\claude_desktop_config.json`
-
-添加以下配置：
+Claude添加以下配置：
 
 ```json
 {
@@ -44,24 +43,45 @@ npm install
     "resource-hacker": {
       "command": "node",
       "args": [
-        "path\\mcp_server\\index.js"
+        "ResourceHacker-mcp_PATH\\ResourceHacker-mcp\\index.js"
       ],
       "env": {
-        "RESOURCE_HACKER_PATH": "path\\ResourceHacker.exe"
+        "RESOURCE_HACKER_PATH": "RESOURCE_HACKER_PATH\\ResourceHacker.exe"
       }
     }
   }
 }
 ```
 
+Codex添加以下配置：
+
+```toml
+[mcp_servers.resource_hacker_mcp]
+type = "stdio"
+command = "node"
+args = ['ResourceHacker-mcp_PATH\\ResourceHacker-mcp\\index.js']
+
+[mcp_servers.resource_hacker_mcp.env]
+RESOURCE_HACKER_PATH = 'RESOURCE_HACKER_PATH\\ResourceHacker.exe'
+```
+
 - 将路径替换为你的实际安装位置
+- `ResourceHacker-mcp_PATH` 指向 ResourceHacker-mcp 的完整路径
 - `RESOURCE_HACKER_PATH` 指向 ResourceHacker.exe 的完整路径
 
-### 步骤 3：重启 Claude Desktop
+## 快速使用示例
+在Claude、codex中输入
+```
+调用ResourceHacker-mcp工具汉化procexp64.exe，注意窗口层级
+```
+汉化效果对比：
 
-完全关闭并重新打开 Claude Desktop 以加载 MCP 服务器。
+<img width="1932" height="1099" alt="image" src="https://github.com/user-attachments/assets/b0083386-7eb3-4fdf-b3ac-fe54018a894d" />
 
-## 可用工具
+<img width="1898" height="1098" alt="image" src="https://github.com/user-attachments/assets/05133b72-6cbb-4f91-85db-37ce36a6aba7" />
+
+
+## 完整功能
 
 ### 1. list_resources - 列出资源
 
@@ -195,27 +215,6 @@ npm install
 - `ICONGROUP,MAINICON,` - 名为 MAINICON 的图标组，任意语言
 - `,,1033` - 所有英语（美国）资源
 
-## 使用示例
-
-### 提取图标
-```
-从 C:\Windows\System32\notepad.exe 提取所有图标到 notepad_icons 文件夹
-```
-
-### 替换应用图标
-```
-使用 newicon.ico 替换 myapp.exe 的主图标，保存为 myapp_new.exe
-```
-
-### 编译资源
-```
-编译 resources.rc 为 resources.res
-```
-
-### 更改语言
-```
-将 app.exe 中的所有资源更改为简体中文（语言 ID 2052）
-```
 
 ## 技术细节
 
@@ -257,27 +256,6 @@ npm install
 - 无法修改"打包"或"压缩"的可执行文件
 - 某些操作需要对目标文件的写权限
 
-## 环境变量配置
-
-服务器通过环境变量 `RESOURCE_HACKER_PATH` 查找 ResourceHacker.exe。
-
-**在 Claude Desktop 配置中设置：**
-```json
-"env": {
-  "RESOURCE_HACKER_PATH": "D:\\path\\to\\ResourceHacker.exe"
-}
-```
-
-**或在系统中设置环境变量（可选）：**
-- Windows：在系统环境变量中添加 `RESOURCE_HACKER_PATH`
-
-如果未设置环境变量，将使用默认值 `ResourceHacker.exe`（需要在 PATH 中）。
-
-## 许可证
-
-- **ResourceHacker：** Freeware by Angus Johnson
-- **MCP 服务器包装代码：** MIT License
-
 ## 参考链接
 
 - [ResourceHacker 官方网站](http://www.angusj.com/resourcehacker/)
@@ -296,3 +274,4 @@ npm install
 - 实现 8 个 MCP 工具
 - 支持可配置的 ResourceHacker.exe 路径
 - 完整的错误处理和日志记录
+
